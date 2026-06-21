@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claudia Garofalo — iOS Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0E0E11;
+      --surface: #17171C;
+      --slate: #F2F2F7;
+      --muted: #8E8E9A;
+      --divider: #2C2C35;
+      --accent: #A78BFA;
+      --accent-soft: #1E1830;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --display: 'Syne', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--slate);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14, 14, 17, 0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--divider);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--slate);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--slate);
+    }
+
+    .nav-links a.active {
+      color: var(--slate);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    /* LANGUAGE SWITCH */
+    .lang-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      width: 64px;
+      height: 30px;
+      background: var(--bg);
+      border: 1px solid var(--divider);
+      border-radius: 99px;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .lang-switch-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
+    }
+
+    .lang-switch-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      z-index: 1;
+      transition: color 0.25s ease;
+      width: 16px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .lang-switch-label.active {
+      color: #fff;
+    }
+
+    .lang-switch-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 6px rgba(167, 139, 250, 0.4);
+    }
+
+    .lang-switch[data-lang="it"] .lang-switch-knob {
+      transform: translateX(34px);
+    }
+
+    .lang-switch:hover .lang-switch-knob {
+      box-shadow: 0 2px 10px rgba(167, 139, 250, 0.6);
+    }
+
+    /* SECTIONS */
+    section {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    /* HERO */
+    #hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 5rem;
+      padding-bottom: 3rem;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 99px;
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      color: var(--slate);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    .hero-actions {
+      display: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.18s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #8b6ef0;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--slate);
+      border: 1.5px solid var(--divider);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--slate);
+      transform: translateY(-1px);
+    }
+
+    .hero-chips {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .chip {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--divider);
+      border-radius: 99px;
+      padding: 0.3rem 0.875rem;
+    }
+
+    /* SECTION HEADER */
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--slate);
+    }
+
+    /* PROJECTS GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--divider);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      cursor: pointer;
+    }
+
+    .project-card.theme-green {
+      --preview-bg: #0f2018;
+      --preview-color: #6fcf97;
+    }
+
+    .project-card.theme-purple {
+      --preview-bg: #1a1430;
+      --preview-color: #b89cf5;
+    }
+
+    .project-card.theme-blue {
+      --preview-bg: #1a1f35;
+      --preview-color: #7da9f5;
+    }
+
+    .project-card.theme-amber {
+      --preview-bg: #221a08;
+      --preview-color: #f5c07a;
+    }
+
+    /* modal links matching project theme */
+    #projectModal.theme-green .btn-primary {
+      background: #0f2018;
+      color: #6fcf97;
+    }
+
+    #projectModal.theme-purple .btn-primary {
+      background: #1a1430;
+      color: #b89cf5;
+    }
+
+    #projectModal.theme-blue .btn-primary {
+      background: #1a1f35;
+      color: #7da9f5;
+    }
+
+    #projectModal.theme-amber .btn-primary {
+      background: #221a08;
+      color: #f5c07a;
+    }
+
+    #projectModal.theme-green .btn-ghost {
+      border-color: #6fcf97;
+      color: #6fcf97;
+    }
+
+    #projectModal.theme-purple .btn-ghost {
+      border-color: #b89cf5;
+      color: #b89cf5;
+    }
+
+    #projectModal.theme-blue .btn-ghost {
+      border-color: #7da9f5;
+      color: #7da9f5;
+    }
+
+    #projectModal.theme-amber .btn-ghost {
+      border-color: #f5c07a;
+      color: #f5c07a;
+    }
+
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+      border-color: var(--divider);
+    }
+
+    .project-preview {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .preview-blue {
+      background: linear-gradient(135deg, #1a1f35 0%, #1e2a4a 100%);
+      --preview-bg: #1a1f35;
+      --preview-color: #7da9f5;
+    }
+
+    .preview-purple {
+      background: linear-gradient(135deg, #1a1430 0%, #261c45 100%);
+      --preview-bg: #1a1430;
+      --preview-color: #b89cf5;
+    }
+
+    .preview-green {
+      background: linear-gradient(135deg, #0f2018 0%, #152b20 100%);
+      --preview-bg: #0f2018;
+      --preview-color: #6fcf97;
+    }
+
+    .preview-amber {
+      background: linear-gradient(135deg, #221a08 0%, #2e240a 100%);
+      --preview-bg: #221a08;
+      --preview-color: #f5c07a;
+    }
+
+    .project-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .tag-ios {
+      background: #1a1f35;
+      color: #7da9f5;
+    }
+
+    .tag-ui {
+      background: #1e1530;
+      color: #b89cf5;
+    }
+
+    .tag-swift {
+      background: #2a1510;
+      color: #f5a07a;
+    }
+
+    .tag-design {
+      background: #0f2018;
+      color: #6fcf97;
+    }
+
+    .project-title {
+      font-family: var(--display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--slate);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .project-link {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--preview-color);
+      background: var(--preview-bg);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      transition: opacity 0.15s, filter 0.15s;
+    }
+
+    .project-link:hover {
+      opacity: 0.85;
+      filter: brightness(1.15);
+    }
+
+    .project-link svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ABOUT */
+    #about {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--divider);
+      padding: 4rem;
+      max-width: 1040px;
+      margin: 0 auto 6rem;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-bio {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .about-bio strong {
+      color: var(--slate);
+      font-weight: 600;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .skill-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--slate);
+      white-space: nowrap;
+      min-width: 120px;
+    }
+
+    .skill-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--divider);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      transform-origin: left;
+      animation: growBar 0.9s ease forwards;
+    }
+
+    @keyframes growBar {
+      from {
+        transform: scaleX(0);
+      }
+
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    /* PROJECT MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 8, 10, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-card {
+      background: var(--surface);
+      border: 1px solid var(--divider);
+      border-radius: var(--radius-lg);
+      max-width: 720px;
+      width: 100%;
+      max-height: 86vh;
+      overflow-y: auto;
+      transform: translateY(16px) scale(0.98);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    }
+
+    .modal-overlay.open .modal-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.75rem 1.75rem 0;
+    }
+
+    .modal-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-title {
+      font-family: var(--display);
+      font-size: 1.625rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--slate);
+    }
+
+    .modal-close {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--divider);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .modal-close:hover {
+      color: var(--slate);
+      border-color: var(--slate);
+    }
+
+    .modal-close svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .modal-desc {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 0.5rem 1.75rem 0;
+    }
+
+    .modal-shots {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 1.5rem 1.75rem 1.75rem;
+      cursor: grab;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
+      scrollbar-color: var(--divider) transparent;
+      -webkit-overflow-scrolling: touch;
+      user-select: none;
+    }
+
+    .modal-shots.dragging {
+      cursor: grabbing;
+      scroll-snap-type: none;
+    }
+
+    .modal-shots::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .modal-shots::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .modal-shots::-webkit-scrollbar-thumb {
+      background: var(--divider);
+      border-radius: 99px;
+    }
+
+    .modal-shot {
+      flex: 0 0 auto;
+      width: 220px;
+      height: 400px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--divider);
+      background: linear-gradient(135deg, #1a1f35 0%, #1e2a4a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      scroll-snap-align: start;
+      flex-direction: column;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+
+    .modal-shot span.shot-num {
+      font-family: var(--display);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.18);
+    }
+
+    .modal-links {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0 1.75rem 1.75rem;
+    }
+
+    body.modal-locked {
+      overflow: hidden;
+    }
+
+    @media (max-width: 700px) {
+      .modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .modal-card {
+        max-width: 100%;
+        max-height: 92vh;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      .modal-shot {
+        width: 180px;
+        height: 320px;
+      }
+    }
+
+    #contact {
+      text-align: center;
+      padding: 5rem 2rem 7rem;
+      max-width: 640px;
+    }
+
+    .contact-desc {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      margin: 1rem 0 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--divider);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+
+    /* SCROLL FADE */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav {
+        padding: 0 1.25rem;
+      }
+
+      .nav-links {
+        gap: 1.25rem;
+      }
+
+      section {
+        padding: 4rem 1.25rem;
+      }
+
+      #about {
+        padding: 2rem 1.5rem;
+      }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      h1 {
+        font-size: 2.75rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .skill-fill {
+        animation: none;
+      }
+
+      .project-card:hover,
+      .btn:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Claudia Garofalo</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#projects" data-i18n="nav.work">Work</a></li>
+        <li><a href="#about" data-i18n="nav.about">Profile</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <button class="lang-switch" id="langSwitch" data-lang="en" type="button"
+        aria-label="Switch language between English and Italian">
+        <div class="lang-switch-track">
+          <span class="lang-switch-label active" id="langLabelEn">EN</span>
+          <span class="lang-switch-label" id="langLabelIt">IT</span>
+        </div>
+        <div class="lang-switch-knob"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-eyebrow" data-i18n="hero.eyebrow">iOS Developer &amp; Designer</p>
+    <h1 data-i18n-html="hero.title">
+      Transforming Complex Ideas into<br />
+      <span>Native Interfaces</span>
+    </h1>
+    <p class="hero-sub" data-i18n-html="hero.sub">
+      I design and engineer iOS experiences with Swift, focusing on interface detail,
+      motion, and the moments that make an app feel <em>right</em>.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary" data-i18n="hero.cta1">View my work</a>
+      <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta2">Get in touch</a>
+    </div>
+    <div class="hero-chips">
+      <span class="chip">Swift</span>
+      <span class="chip">SwiftUI</span>
+      <span class="chip">AVFoundation</span>
+      <span class="chip">Sketch</span>
+      <span class="chip">Xcode</span>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow" data-i18n="projects.eyebrow">Selected work</p>
+      <h2 data-i18n="projects.title">Projects</h2>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card theme-green fade-in" tabindex="0" role="button" data-project="0" aria-haspopup="dialog">
+        <div class="project-preview preview-green">
+          <img src="IconaRealGO.png" alt="RealGO" style="width: 40%; height: auto;">
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-design">iOS</span>
+            <span class="tag tag-design">SwiftUI</span>
+            <span class="tag tag-design">MapKit</span>
+            <span class="tag tag-design">CoreLocation</span>
+            <span class="tag tag-design">CloudKit</span>
+          </div>
+          <p class="project-title">RealGO</p>
+          <p class="project-desc" data-i18n="project.0.short">
+            An interactive navigation app for the Real Bosco of Capodimonte that uses smart real-time routing to ensure
+            a seamless, accessible, and stress-free exploration of the park’s historic paths.
+          </p>
+          <div class="project-links">
+            <a href="https://apps.apple.com/it/app/realgo/id6768687366?l=en-GB" class="project-link"
+              onclick="event.stopPropagation()">
+              App Store
+              <svg viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card theme-purple fade-in" tabindex="0" role="button" data-project="1" aria-haspopup="dialog">
+        <div class="project-preview preview-purple">
+          <img src="IconaTogocchi.png" alt="Togocchi" style="width: 40%; height: auto;">
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-ui">iOS</span>
+            <span class="tag tag-ui">SwiftUI</span>
+            <span class="tag tag-ui">CloudKit</span>
+            <span class="tag tag-ui">WidgetKit</span>
+            <span class="tag tag-ui">Haptics</span>
+            <span class="tag tag-ui">WatchOS</span>
+          </div>
+          <p class="project-title">ToGocchi</p>
+          <p class="project-desc" data-i18n="project.1.short">
+            A modern, accessible virtual pet in pixel art that you can raise and share with your partner, featuring
+            seamless iCloud synchronization to keep your companion always in sync.
+          </p>
+          <div class="project-links">
+            <a href="https://apps.apple.com/it/app/togocchi/id6760138160?l=en-GB" class="project-link"
+              onclick="event.stopPropagation()">
+              App Store
+              <svg viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card theme-blue fade-in" tabindex="0" role="button" data-project="2" aria-haspopup="dialog">
+        <div class="project-preview preview-blue">
+          <img src="IconaGalacticGrades.png" alt="GalacticGrades" style="width: 40%; height: auto;">
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-ios">iPadOS</span>
+            <span class="tag tag-ios">SwiftUI</span>
+            <span class="tag tag-ios">SwiftData</span>
+            <span class="tag tag-ios">Vision</span>
+            <span class="tag tag-ios">PencilKit</span>
+            <span class="tag tag-ios">Lottie</span>
+          </div>
+          <p class="project-title">Galactic Grades</p>
+          <p class="project-desc" data-i18n="project.2.short">
+            An interactive, gamified math adventure for iPad that transforms arithmetic into a space mission, allowing
+            kids to solve problems naturally using Apple Pencil handwriting input.
+          </p>
+          <div class="project-links">
+            <a href="https://testflight.apple.com/join/3Hew9HHw" class="project-link" onclick="event.stopPropagation()">
+              TestFlight
+              <svg viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card theme-amber fade-in" tabindex="0" role="button" data-project="3" aria-haspopup="dialog">
+        <div class="project-preview preview-amber">
+          <img src="IconaQuestBoard.jpeg" alt="QuestBoard" style="width: 40%; height: auto;">
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-swift">iOS</span>
+            <span class="tag tag-swift">SwiftUI</span>
+            <span class="tag tag-swift">SwiftData</span>
+          </div>
+          <p class="project-title">Questboard</p>
+          <p class="project-desc" data-i18n="project.3.short">
+            A fantasy RPG-themed task manager designed to combat ADHD by turning custom daily goals into
+            character-leveling quests.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECT MODAL -->
+  <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <div class="modal-tags" id="modalTags"></div>
+          <p class="modal-title" id="modalTitle"></p>
+        </div>
+        <button class="modal-close" id="modalClose" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-shots" id="modalShots"></div>
+      <div class="modal-links" id="modalLinks"></div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div id="about" class="fade-in">
+    <div class="section-header" style="margin-bottom: 2.5rem;">
+      <p class="section-eyebrow" data-i18n="about.eyebrow">Background</p>
+      <h2 data-i18n="about.title">About me</h2>
+    </div>
+    <div class="about-inner">
+      <div>
+        <p class="about-bio" data-i18n-html="about.bio">
+          <strong>Computer Engineering student</strong> at Federico II and <strong>Apple Developer Academy
+            student</strong>.
+          I am a lifelong learner and highly adaptable, firmly believing that collaboration and the exchange of
+          ideas are the primary catalysts for innovation. I combine analytical rigor with a user-centric, creative
+          mindset.<br /><br />
+          I identify myself as an <strong>iOS developer</strong> with a strong eye for front-end detail and product
+          design.
+          I care deeply about the overlap between engineering and interface, the kind of polish that
+          makes an app feel like it was crafted, not assembled.<br /><br />
+          I work primarily in <strong>Swift</strong> and <strong>SwiftUI</strong>, with experience across
+          many aspects of iOS stack. I also bring a strong design sensibility to my projects, prioritizing UX and
+          accessibility from the very early stages of the development process.
+        </p>
+      </div>
+      <div>
+        <p class="section-eyebrow" style="margin-bottom: 1.25rem;" data-i18n="about.skills">Skills</p>
+        <div class="skills-list">
+          <div class="skill-row">
+            <span class="skill-label">Coding</span>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 90%;"></div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Teamwork</span>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 95%;"></div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">UX/UI Design</span>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 82%;"></div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label"> Creativity</span>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 96%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact" style="margin: 0 auto;">
+    <div class="fade-in">
+      <p class="section-eyebrow" style="text-align:center;" data-i18n="contact.eyebrow">Let's talk</p>
+      <h2 style="text-align:center;" data-i18n="contact.title">Get in touch</h2>
+      <p class="contact-desc" data-i18n="contact.desc">
+        Open to freelance projects, full-time roles, or just a good conversation about apps and design.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:claudiagarofalo203@gmail.com" class="btn btn-primary" data-i18n="contact.email">Email me</a>
+        <a href="https://github.com/Claudia377" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+        <a href="https://www.linkedin.com/in/claudia-garofalo-68a25a416?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+          target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p data-i18n="footer.text">Designed &amp; built by Claudia Garofalo · 2026</p>
+  </footer>
+
+  <script>
+    /* ---------- FADE-IN ON SCROLL ---------- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    /* ---------- NAV ACTIVE LINK ON SCROLL ---------- */
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href')));
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = '#' + entry.target.id;
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(s => s && navObserver.observe(s));
+
+    /* ---------- PROJECT DATA ----------
+       To swap in real screenshots: replace the `shots` array for each
+       project with your own image URLs, e.g. shots: ["img1.jpg", "img2.jpg"]
+       and update the rendering in openModal() to use <img src="..."> instead
+       of the placeholder block. */
+    const projects = [
+      {
+        title: "RealGO",
+        tags: [["iOS", "tag-design"], ["SwiftUI", "tag-design"], ["MapKit", "tag-design"], ["CoreLocation", "tag-design"], ["CloudKit", "tag-design"]],
+        desc: {
+          en: "An interactive navigation app for the Real Bosco of Capodimonte that uses smart real-time routing to ensure a seamless, accessible, and stress-free exploration of the park’s historic paths.",
+          it: "Un'app di navigazione interattiva per il Real Bosco di Capodimonte che utilizza un sistema di instradamento smart in tempo reale per garantire un'esplorazione fluida, accessibile e senza stress dei sentieri storici del parco."
+        },
+        shots: ["screen1.png", "screen2.png", "screen3.png"],
+        links: [
+          { label: "App Store", url: "https://apps.apple.com/it/app/realgo/id6768687366?l=en-GB" },
+        ]
+      },
+      {
+        title: "Togocchi",
+        tags: [["iOS", "tag-ui"], ["SwiftUI", "tag-ui"], ["CloudKit", "tag-ui"], ["WidgetKit", "tag-ui"], ["Haptics", "tag-ui"], ["WatchOS", "tag-ui"]],
+        desc: {
+          en: "A modern, accessible virtual pet in pixel art that you can raise and share with your partner, featuring seamless iCloud synchronization to keep your companion always in sync.",
+          it: "Un moderno animale virtuale in pixel art che puoi crescere e condividere con il tuo partner, dotato di una sincronizzazione iCloud fluida per mantenere il vostro compagno sempre aggiornato su tutti i dispositivi."
+        },
+        shots: ["screen4.png", "screen5.png", "screen6.png", "screen10.png"],
+        links: [
+          { label: "App Store", url: "https://apps.apple.com/it/app/togocchi/id6760138160?l=en-GB" }
+        ]
+      },
+      {
+        title: "Galactic Grades",
+        tags: [["iPadOS", "tag-ios"], ["SwiftUI", "tag-ios"], ["SwiftData", "tag-ios"], ["Vision", "tag-ios"], ["PencilKit", "tag-ios"], ["Lottie", "tag-ios"]],
+        desc: {
+          en: "An interactive, gamified math adventure for iPad that transforms arithmetic into a space mission, allowing kids to solve problems naturally using Apple Pencil handwriting input.",
+          it: "Un'avventura matematica interattiva e gamificata per iPad che trasforma l'aritmetica in una missione spaziale, permettendo ai bambini di risolvere i problemi scrivendo naturalmente con Apple Pencil."
+        },
+        shots: ["screen7.png", "screen8.png", "screen9.png"],
+        links: [
+          { label: "TestFlight", url: "https://testflight.apple.com/join/3Hew9HHw" },
+        ]
+      },
+      {
+        title: "Questboard",
+        tags: [["iOS", "tag-swift"], ["SwiftUI", "tag-swift"], ["SwiftData", "tag-swift"]],
+        desc: {
+          en: "A fantasy RPG-themed task manager designed to combat ADHD by turning custom daily goals intocharacter-leveling quests.",
+          it: "Un task manager a tema GDR fantasy progettato per contrastare l'ADHD, trasformando gli obiettivi quotidiani personalizzati in missioni per far salire di livello il proprio personaggio."
+        },
+        shots: ["screen11.jpeg", "screen12.jpeg", "screen13.jpeg", "screen14.jpeg", "screen15.jpeg"],
+        links: [
+
+        ]
+      }
+    ];
+
+    /* ---------- descrizioni della pagina home ---------- */
+    const translations = {
+      en: {
+        "nav.work": "Work", "nav.about": "About", "nav.contact": "Contact",
+        "hero.eyebrow": "iOS Developer &amp; Designer",
+        "hero.cta1": "View my work", "hero.cta2": "Get in touch",
+        "projects.eyebrow": "Selected work", "projects.title": "Projects",
+        "project.0.short": "An interactive navigation app for the Real Bosco of Capodimonte that uses smart real-time routing to ensure a seamless, accessible, and stress-free exploration of the park’s historic paths.",
+        "project.1.short": "A modern, accessible virtual pet in pixel art that you can raise and share with your partner, featuring seamless iCloud synchronization to keep your companion always in sync.",
+        "project.2.short": "An interactive, gamified math adventure for iPad that transforms arithmetic into a space mission, allowing kids to solve problems naturally using Apple Pencil handwriting input.",
+        "project.3.short": "A fantasy RPG-themed task manager designed to combat ADHD by turning custom daily goals intocharacter-leveling quests.",
+        "about.eyebrow": "Background", "about.title": "About me", "about.skills": "Skills",
+        "contact.eyebrow": "Let's talk", "contact.title": "Get in touch",
+        "contact.desc": "Open to freelance projects, full-time roles, or just a good conversation about apps and design.",
+        "contact.email": "Email me",
+        "footer.text": "Designed &amp; built by Claudia Garofalo · 2026",
+        "modal.screenshots": "Screenshots"
+      },
+      it: {
+        "nav.work": "Lavori", "nav.about": "Chi sono", "nav.contact": "Contatti",
+        "hero.eyebrow": "iOS Developer &amp; Designer",
+        "hero.cta1": "Guarda i lavori", "hero.cta2": "Contattami",
+        "projects.eyebrow": "Lavori selezionati", "projects.title": "Progetti",
+        "project.0.short": "Un'app di navigazione interattiva per il Real Bosco di Capodimonte che sfrutta un instradamento intelligente in tempo reale per garantire un'esplorazione fluida, accessibile e senza stress dei sentieri storici del parco.",
+        "project.1.short": "Un moderno animale virtuale in pixel art che puoi crescere e condividere con il tuo partner, dotato di una sincronizzazione iCloud fluida per mantenere il vostro compagno sempre aggiornato su tutti i dispositivi.",
+        "project.2.short": "Un'avventura matematica interattiva e gamificata per iPad che trasforma l'aritmetica in una missione spaziale, permettendo ai bambini di risolvere i problemi scrivendo naturalmente con Apple Pencil.",
+        "project.3.short": "Un task manager a tema GDR fantasy progettato per contrastare l'ADHD, trasformando gli obiettivi quotidiani personalizzati in missioni per far salire di livello il proprio personaggio.",
+        "about.eyebrow": "Background", "about.title": "Chi sono", "about.skills": "Competenze",
+        "contact.eyebrow": "Parliamo", "contact.title": "Contattami",
+        "contact.desc": "Disponibile per progetti freelance, ruoli full-time o anche solo una bella chiacchierata su app e design.",
+        "contact.email": "Scrivimi",
+        "footer.text": "Progettato e realizzato da Claudia Garofalo · 2026",
+        "modal.screenshots": "Screenshot"
+      }
+    };
+
+    const heroHtml = {
+      en: {
+        title: 'Transforming Complex Ideas into <span>Native Interfaces</span>',
+        sub: 'I design and engineer iOS experiences with Swift, focusing on interface detail, motion, and the moments that make an app feel <em>right</em>.'
+      },
+      it: {
+        title: 'Trasformare Concetti Complessi in <span>Interfacce Native</span>',
+        sub: 'Progetto e sviluppo esperienze iOS con Swift, con attenzione ai dettagli dell\'interfaccia, al movimento e a quei momenti che fanno sentire un\'app <em>giusta</em>.'
+      }
+    };
+
+    const aboutBioHtml = {
+      en: `<strong>Computer Engineering student</strong> at Federico II and <strong>Apple Developer Academy student</strong>. I am a lifelong learner and highly adaptable, firmly believing that collaboration and the exchange of ideas are the primary catalysts for innovation. I combine analytical rigor with a user-centric, creative mindset.<br /><br />
+      I identify myself as an <strong>iOS developer</strong> with a strong eye for front-end detail and product design.
+        I care deeply about the overlap between engineering and interface, the kind of polish that
+        makes an app feel like it was crafted, not assembled.<br /><br />
+        I work primarily in <strong>Swift</strong> and <strong>SwiftUI</strong>, with experience across
+        many aspects of iOS stack. I also bring a strong design sensibility to my projects, prioritizing UX and accessibility from the very early stages of the development process.`,
+      it: `<strong>Studentessa di Ingegneria Informatica</strong> alla Federico II e <strong>studentessa dell'Apple Developer Academy</strong>. Sono una persona in costante apprendimento e molto adattabile, convinta che la collaborazione e lo scambio di idee siano i principali motori dell'innovazione. Unisco rigore analitico a una mentalità creativa e orientata all'utente.<br /><br />
+      Mi identifico come <strong>iOS developer</strong> con un occhio attento ai dettagli front-end e al product design.
+        Mi interessa profondamente il punto di incontro tra ingegneria e interfaccia, quella cura che
+        fa sentire un'app costruita su misura, non assemblata.<br /><br />
+        Lavoro principalmente con <strong>Swift</strong> e <strong>SwiftUI</strong>, con esperienza su
+        diversi aspetti dello stack iOS. Porto anche una forte sensibilità di design ai miei progetti, dando priorità alla UX e all'accessibilità fin dalle primissime fasi del processo di sviluppo.`
+    };
+
+    let currentLang = 'en';
+
+    function applyTranslations(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key] !== undefined) el.innerHTML = translations[lang][key];
+      });
+      const h1 = document.querySelector('[data-i18n-html="hero.title"]');
+      if (h1) h1.innerHTML = heroHtml[lang].title;
+      const sub = document.querySelector('[data-i18n-html="hero.sub"]');
+      if (sub) sub.innerHTML = heroHtml[lang].sub;
+      const bio = document.querySelector('[data-i18n-html="about.bio"]');
+      if (bio) bio.innerHTML = aboutBioHtml[lang];
+
+      document.documentElement.lang = lang;
+      currentLang = lang;
+
+      // refresh modal content if it's open
+      const openIndex = document.getElementById('projectModal').dataset.openIndex;
+      if (openIndex !== undefined && openIndex !== '') {
+        renderModalContent(parseInt(openIndex, 10));
+      }
+    }
+
+    const langSwitch = document.getElementById('langSwitch');
+    const langLabelEn = document.getElementById('langLabelEn');
+    const langLabelIt = document.getElementById('langLabelIt');
+
+    langSwitch.addEventListener('click', () => {
+      const next = currentLang === 'en' ? 'it' : 'en';
+      langSwitch.setAttribute('data-lang', next);
+      langLabelEn.classList.toggle('active', next === 'en');
+      langLabelIt.classList.toggle('active', next === 'it');
+      applyTranslations(next);
+    });
+
+    /* ---------- PROJECT MODAL ---------- */
+    const modal = document.getElementById('projectModal');
+    const modalTags = document.getElementById('modalTags');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalShots = document.getElementById('modalShots');
+    const modalLinks = document.getElementById('modalLinks');
+    const modalClose = document.getElementById('modalClose');
+
+    function renderModalContent(index) {
+      const p = projects[index];
+      modalTitle.textContent = p.title;
+      modalTags.innerHTML = p.tags.map(([label, cls]) =>
+        `<span class="tag ${cls}">${label}</span>`
+      ).join('');
+      modalDesc.textContent = p.desc[currentLang];
+      modalShots.innerHTML = p.shots.map(src => `
+    <div class="modal-shot">
+      <img src="${src}" alt="Screenshot" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+  `).join('');
+      modalLinks.innerHTML = p.links.map((l, i) => `
+        <a href="${l.url}" class="btn ${i === 0 ? 'btn-primary' : 'btn-ghost'}" target="_blank" rel="noopener">${l.label}</a>
+      `).join('');
+    }
+
+    const themeClasses = ['theme-green', 'theme-purple', 'theme-blue', 'theme-amber'];
+
+    function openModal(index) {
+      modal.dataset.openIndex = index;
+      renderModalContent(index);
+      // apply matching theme
+      modal.classList.remove(...themeClasses);
+      const themes = ['theme-green', 'theme-purple', 'theme-blue', 'theme-amber'];
+      if (themes[index]) modal.classList.add(themes[index]);
+      modal.classList.add('open');
+      document.body.classList.add('modal-locked');
+      modalClose.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('open', ...themeClasses);
+      modal.dataset.openIndex = '';
+      document.body.classList.remove('modal-locked');
+    }
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('click', () => openModal(parseInt(card.dataset.project, 10)));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(parseInt(card.dataset.project, 10));
+        }
+      });
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+    /* free horizontal drag-scroll for screenshots */
+    let isDown = false, startX = 0, startScroll = 0;
+
+    modalShots.addEventListener('mousedown', (e) => {
+      isDown = true;
+      modalShots.classList.add('dragging');
+      startX = e.pageX;
+      startScroll = modalShots.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDown = false;
+      modalShots.classList.remove('dragging');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const dx = e.pageX - startX;
+      modalShots.scrollLeft = startScroll - dx;
+    });
+
+    // touch support
+    let touchStartX = 0, touchStartScroll = 0;
+    modalShots.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].pageX;
+      touchStartScroll = modalShots.scrollLeft;
+    }, { passive: true });
+
+    modalShots.addEventListener('touchmove', (e) => {
+      const dx = e.touches[0].pageX - touchStartX;
+      modalShots.scrollLeft = touchStartScroll - dx;
+    }, { passive: true });
+  </script>
+</body>
+
+</html>
